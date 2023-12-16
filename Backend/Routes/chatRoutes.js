@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.post( '/' , protect, chatController.accessChat )
 router.get( '/' , protect , chatController.fetchChats )
-// router.post( '/group' , protect , userController.createGroupChat )
-// router.put( '/renameGroup' , protect , userController.renameGroupChat )
-// router.put( '/removeUserFromGroup' , protect , userController.removeUserFromGroup )
-// router.put( '/addUserToGroup' , protect , userController.addUserToGroup )
+router.post( '/group' , protect , chatController.createGroupChat )
+router.put( '/renameGroup' , protect , chatController.renameGroupChat )
+router.put( '/addUserToGroup' , protect , chatController.addUserToGroup )
+router.put( '/removeUserFromGroup' , protect , chatController.removeUserFromGroup )
 
 module.exports = router
