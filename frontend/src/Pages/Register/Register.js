@@ -1,29 +1,73 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import './Register.css';
 
 const Register = () => {
-  
-  const [ name, setName ] = useState()
-  const [ email, setEmail ] = useState()
-  const [ password, setPassword ] = useState()
-  const [ file, setFile ] = useState(null)
 
+  const [name, setName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [pic, setPic] = useState()
+  const [file, setFile] = useState(null)
+
+  // const handleFileChange = (e) => {
+  //   const nfile = e.target.files[0];
+  //   setFile(nfile);
+  //   handleUpload()
+  // };
+
+  // const handleUpload = async () => {
+  //   if (!file) {
+  //     console.error('No file selected');
+  //     return;
+  //   }
+
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('file', file);
+  //     formData.append('upload_preset', 'ChatApplicationProfilepictures'); // Set your Cloudinary upload preset
+  //     const response = await fetch('https://api.cloudinary.com/v1_1/dej8hlkax/image/upload', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+
+  //     const data = await response.json();
+  //     const newImageUrl = data.secure_url;
+  //     setPic(newImageUrl);
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error);
+  //   }
+  // };
+
+  const handleSubmit = async () => {
+    // if( !name || !email || !password || !file ){
+    //   alert("Please fill out all fields")
+    //   return
+    // }
+
+    try{
+      const response = await axios.post( '/api/user/register', {name, email, password} );
+      console.log(response.data)
+    }
+    catch(e) {
+      console.log(e)
+    }
+  }
 
   return (
-
     <div class="container">
 
       <div class="login">
 
         <h1>Register</h1>
 
-        <form action="">
+        <div className='form' action="">
           <div class="input-box">
             <input type="Name" placeholder="Name" onChange={(e) => setName(e.target.value)} />
             <i class="fa fa-envelope"></i>
           </div>
           <div class="input-box">
-            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
             <i class="fa fa-envelope"></i>
           </div>
 
@@ -33,18 +77,18 @@ const Register = () => {
           </div>
 
           <div class="input-box">
-            <input type="file" placeholder="Name" onChange={(e) => setFile(e.target.value)} />
+            <input type="file" accept="image/*"  />
             <i class="fa fa-envelope"></i>
           </div>
 
-          <button type="">Register</button>
+          <button type="" onClick={handleSubmit}>Register</button>
 
           <div class="links">
-            <a href="#">Forgot password ?</a>
-            <a href="#">You don't have an account ?</a>
+            <a href="#" className='text-white font-thin text-xs'>Forgot password ?</a>
+            <a href="#" className='text-white font-thin text-xs'>You don't have an account ?</a>
           </div>
 
-        </form>
+        </div>
 
       </div>
 

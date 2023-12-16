@@ -13,7 +13,7 @@ const user = mongoose.Schema({
         type: String,
         required : true
     },
-    picture : {
+    pic : {
         type: String,
         default : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     }
@@ -23,5 +23,5 @@ const user = mongoose.Schema({
 }
 )
 
-const User = mongoose.model("Message", User)
+const User = mongoose.model("User", user)
 module.exports = User
