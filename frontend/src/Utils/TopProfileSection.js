@@ -9,9 +9,9 @@ const TopProfileSection = () => {
       <div>
         <img className=' h-14 w-14 rounded-full ' src={pic} alt='dp' />
       </div>
-      <div className='flex flex-col self-start'>
+      <div className='flex flex-col'>
         <div>{name}</div>
-        <div className='text-gray-500'>{LastMessage}</div>
+        {/* <div className='text-gray-500'>{LastMessage}</div> */}
       </div>
       <div className='flex items-center cursor-pointer'>
         <div>. . .</div>

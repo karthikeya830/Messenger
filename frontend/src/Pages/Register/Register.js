@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './Register.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  const [pic, setPic] = useState()
-  const [file, setFile] = useState(null)
-
+  // const [pic, setPic] = useState()
+  // const [file, setFile] = useState(null)
+  const navigate = useNavigate()
   // const handleFileChange = (e) => {
   //   const nfile = e.target.files[0];
   //   setFile(nfile);
@@ -40,14 +41,15 @@ const Register = () => {
   // };
 
   const handleSubmit = async () => {
-    // if( !name || !email || !password || !file ){
-    //   alert("Please fill out all fields")
-    //   return
-    // }
+    if( !name || !email || !password ){
+      alert("Please fill out all fields")
+      return
+    }
 
     try{
       const response = await axios.post( '/api/user/register', {name, email, password} );
       console.log(response.data)
+      navigate('/chats')
     }
     catch(e) {
       console.log(e)

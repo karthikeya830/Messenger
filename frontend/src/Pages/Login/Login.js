@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
 import './Login.css';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-
+    const navigate = useNavigate()
     const handleSubmit = async () => {
         // if( !name || !email || !password || !file ){
         //   alert("Please fill out all fields")
         //   return
         // }
-    
-        try{
-          const response = await axios.post( '/api/user/login', { email, password} );
-          console.log(response.data)
+
+        try {
+            const response = await axios.post('/api/user/login', { email, password });
+            console.log(response.data)
+            navigate('/chats')
         }
-        catch(e) {
-          console.log(e)
+        catch (e) {
+            console.log(e)
         }
-      }
+    }
     return (
 
         <div class="container">
