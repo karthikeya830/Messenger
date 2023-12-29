@@ -1,0 +1,40 @@
+.loader-37 {
+	border-right: 0.1em solid white;
+	border-radius: 100%;
+	width: 2.4em; /* Adjust the width to increase the size */
+	height: 2.4em; /* Adjust the height to increase the size */
+	animation: loader-37 800ms linear infinite;
+
+	&:before,
+	&:after {
+		content: '';
+		width: 1.2em; /* Adjust the width to increase the size */
+		height: 1.2em; /* Adjust the height to increase the size */
+		display: block;
+		position: absolute;
+		top: calc(50% - 0.6em);
+		left: calc(50% - 0.6em);
+		border-left: 0.12em solid white;
+		border-radius: 100%;
+		animation: loader-37 400ms linear infinite reverse;
+	}
+
+	&:after {
+		width: 0.9em; /* Adjust the width to increase the size */
+		height: 0.9em; /* Adjust the height to increase the size */
+		top: calc(50% - 0.45em);
+		left: calc(50% - 0.45em);
+		border: 0;
+		border-right: 0.075em solid white;
+		animation: none;
+	}
+}
+
+@keyframes loader-37 {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}

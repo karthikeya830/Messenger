@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Login.css';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState()
@@ -15,6 +15,7 @@ const Login = () => {
 
         try {
             const response = await axios.post('/api/user/login', { email, password });
+            localStorage.setItem('user', JSON.stringify(response));
             console.log(response.data)
             navigate('/chats')
         }
@@ -44,8 +45,8 @@ const Login = () => {
                     <button onClick={handleSubmit} >LOGIN</button>
 
                     <div class="links">
-                        <a href="#">Forgot password ?</a>
-                        <a href="#">You don't have an account ?</a>
+                        <Link to='/register' >Forgot password ?</Link>
+                        <Link to='/register' >You don't have an account ?</Link>
                     </div>
 
                 </div>

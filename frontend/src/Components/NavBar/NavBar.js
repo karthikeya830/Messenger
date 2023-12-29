@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between text-gray-400 w-fit h-screen p-5">
+    <div className="flex flex-col justify-between text-gray-400 w-fit h-screen p-5 border-r border-gray-400">
       <div className="text-4xl font-bold cursor-pointer">LO</div>
       <div className="flex flex-col gap-7">
         <Link to="/users">

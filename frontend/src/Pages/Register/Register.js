@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './Register.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
@@ -41,17 +41,18 @@ const Register = () => {
   // };
 
   const handleSubmit = async () => {
-    if( !name || !email || !password ){
+    if (!name || !email || !password) {
       alert("Please fill out all fields")
       return
     }
 
-    try{
-      const response = await axios.post( '/api/user/register', {name, email, password} );
+    try {
+      const response = await axios.post('/api/user/register', { name, email, password });
+      localStorage.setItem('user', JSON.stringify(response));
       console.log(response.data)
       navigate('/chats')
     }
-    catch(e) {
+    catch (e) {
       console.log(e)
     }
   }
@@ -79,15 +80,14 @@ const Register = () => {
           </div>
 
           <div class="input-box">
-            <input type="file" accept="image/*"  />
+            <input type="file" accept="image/*" />
             <i class="fa fa-envelope"></i>
           </div>
 
           <button type="" onClick={handleSubmit}>Register</button>
 
           <div class="links">
-            <a href="#" className='text-white font-thin text-xs'>Forgot password ?</a>
-            <a href="#" className='text-white font-thin text-xs'>You don't have an account ?</a>
+            <Link to='/' href="#">Already have an account ?</Link>
           </div>
 
         </div>
