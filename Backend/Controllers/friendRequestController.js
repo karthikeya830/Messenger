@@ -4,6 +4,12 @@ const sendFriendRequest = async (req, res) => {
     try {
         const { requesterId, receiverId } = req.body;
 
+        const isPresent = await FriendRequest.find({ requesterId, receiverId })
+        // if (isPresent) {
+        //     res.status(201).json({ message: 'Friend request sent already' });
+        //     return
+        // }
+
         const newRequest = new FriendRequest({
             requesterId,
             receiverId
@@ -25,11 +31,31 @@ const getPendingRequests = async (req, res) => {
         const pendingRequests = await FriendRequest.find({
             receiverId: userId,
             status: 'pending'
-        }).populate("requesterId", "-password") // Assuming requesterId is a reference to the User model
+        }).populate("requesterId", "-password")
 
         res.status(200).json(pendingRequests);
     } catch (error) {
         console.error('Error fetching pending friend requests:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+const deleteFriendRequest = async (req, res) => {
+    try {
+        const requestId = req.query.requestId;
+        console.log(req.params.requestId);
+
+        const request = await FriendRequest.findById(requestId);
+
+        if (!request) {
+            return res.status(404).json({ error: 'Friend request not found' });
+        }
+
+        await FriendRequest.findByIdAndDelete(requestId);
+
+        res.status(200).json({ message: 'Friend request deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting friend request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
@@ -59,5 +85,4 @@ const respondToRequest = async (req, res) => {
     }
 };
 
-
-module.exports = { respondToRequest, getPendingRequests, sendFriendRequest }
+module.exports = { respondToRequest, getPendingRequests, sendFriendRequest, deleteFriendRequest }

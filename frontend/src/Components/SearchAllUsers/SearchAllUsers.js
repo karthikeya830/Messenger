@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSearch } from "react-icons/bs";
 import axios from 'axios';
 import UserListItem from './UserListItem';
@@ -8,6 +8,7 @@ const SearchAllUsers = () => {
     const [searchResults, setSearchResults] = useState([])
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const [isLoading , setIsLoading] = useState(false)
+
 
     const searchUser = async (e) => {
         e.preventDefault();
@@ -25,8 +26,8 @@ const SearchAllUsers = () => {
                     'Authorization': `Bearer ${user.data.token}`
                 }
             };
-            const res = await axios.get(`http://localhost:5000/api/user?search=${searchTerm}`, config);
-            // console.log(res.data[0].name)
+            const res = await axios.get(`api/user?search=${searchTerm}`, config);
+            console.log(res.data)
             setSearchResults(res.data)
             setIsLoading(false)
         } catch (error) {
@@ -44,7 +45,7 @@ const SearchAllUsers = () => {
             </div>
             {searchResults.length > 0 &&
                 searchResults.map((value, key) => {
-                    return <UserListItem key={key} name={value.name} pic={value.pic} />
+                    return <UserListItem key={key} name={value.name} pic={value.pic} userId={value._id} />
                 })
             }
             { isLoading && <Loader /> }
