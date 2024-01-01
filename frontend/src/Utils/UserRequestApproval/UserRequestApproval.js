@@ -9,8 +9,24 @@ const UserRequestApproval = ({ name, pic, userId, requestId, reload }) => {
     const [isSent, setIsSent] = useState(false)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')).data)
 
-    const acceptRequest = () => {
-
+    const acceptRequest = async () => {
+        try {
+            // console.log(user._id);
+            // console.log(userId);
+            setIsLoading(true)
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            };
+            const res = await axios.delete(`api/request/?requestId=${requestId}`, config);
+            console.log(res.data)
+            reload(true)
+            setIsSent(true)
+            setIsLoading(false)
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
     }
 
     const deleteRequest = async () => {
